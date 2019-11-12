@@ -11,34 +11,29 @@
           <h5>Velocidade</h5>
         </div>
 
-        <div class="picker-selectors picker-grid" v-for="i in [1,2,3,4,5,6,7,8,9,10]" :key="i">
-          <b-form-select
-            :value="null"
-            :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-          >
-          </b-form-select>
+        <div
+          class="picker-selectors picker-grid"
+          v-for="i in birds"
+          :key="i.id"
+        >
+          <b-form-select :value="null" :options="colorTypes"> </b-form-select>
 
-          <b-form-select
-            :value="null"
-            :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-          >
-          </b-form-select>
+          <b-form-select :value="null" :options="foodTypes"> </b-form-select>
+          <div class="picker-number-input">
+            <b-form-input type="number" min="0" max="31"></b-form-input>
+          </div>
 
-          <b-form-select
-            :value="null"
-            :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-          >
-          </b-form-select>
-
-          <b-form-select
-            :value="null"
-            :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-          >
-          </b-form-select>
+          <div class="picker-number-input">
+            <b-form-input type="number" min="0" max="31"></b-form-input>
+          </div>
         </div>
       </div>
 
-      <div class="remaining-points">uhuhu</div>
+      <div class="remaining-points">
+        <div class="title">
+          <h5>Pontos Restantes</h5>
+        </div>
+      </div>
     </div>
     <div class="button-continue">
       <div>
@@ -49,7 +44,21 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex';
+export default {
+  computed: {
+    ...mapGetters({
+      foodTypes: 'birds/foodTypesOptions',
+      colorTypes: 'birds/colorTypesOptions'
+    }),
+    birds: function() {
+      return this.$store.state.birds.list;
+    }
+  },
+  async fetch({ store }) {
+    store.dispatch('birds/createInitialBirds');
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -70,26 +79,35 @@ export default {}
   flex-grow: 1.25;
   border-right: 1px solid black;
   padding: 0 48px;
+  overflow-y: auto;
 
   & .picker-grid {
     display: grid;
     grid-template-columns: 2fr 2fr 1fr 1fr;
-    grid-column-gap: 24px;
+    grid-column-gap: 36px;
     justify-items: center;
 
-    &.picker-titles h5{
+    &.picker-titles h5 {
       text-align: center;
-      margin-bottom: 17px;
+      margin-bottom: 34px;
     }
 
-    &.picker-selectors{
+    &.picker-selectors {
       margin-bottom: 17px;
+
+      & .picker-number-input {
+        padding: 0 10px;
+      }
     }
   }
 }
 
 .remaining-points {
   flex-grow: 1;
+
+  & .title {
+    text-align: center;
+  }
 }
 
 .button-continue {
