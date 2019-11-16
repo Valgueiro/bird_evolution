@@ -1,43 +1,65 @@
 const INITIAL_BIRD_NUMBER = 10;
+const FOOD_TYPES = ['Carnívoro', 'Herbívoro', 'Onívoro'];
+const COLOR_TYPES = ['Branco', 'Preto', 'Marrom', 'Amarelo Claro'];
 
 export const state = () => ({
   list: [],
-  foodTypes: ['Carnívoro', 'Herbívoro', 'Onívoro'],
-  colorTypes: ['Branco', 'Preto', 'Marrom', 'Amarelo Claro']
+  foodTypes: [],
+  colorTypes: []
 });
 
 export const mutations = {
   add(state, bird) {
     state.list.push(bird);
   },
-  remove(state, { bird }) {
-    state.list.splice(state.list.indexOf(bird), 1);
+
+  setlist(state, list) {
+    state.list = list;
   },
-  toggle(state, todo) {
-    todo.done = !todo.done;
+  setColorTypes(state, colorTypes) {
+    state.colorTypes = colorTypes;
+  },
+  setFoodTypes(state, foodTypes) {
+    state.foodTypes = foodTypes;
   }
 };
 
 export const actions = {
-  createInitialBirds({ commit, state }) {
+  init({ commit, state }) {
     if (state.list.length == 0) {
+      const birds = [];
       for (let i = 0; i < INITIAL_BIRD_NUMBER; i++) {
-        const bird = { id: i };
-        commit('add', bird);
+        birds.push({ id: i });
       }
+      commit('setlist', birds);
+    }
+
+    if (state.foodTypes.length == 0) {
+      const foodOptions = FOOD_TYPES.map(type => {
+        return {
+          value: type,
+          valuesAssigned: 0,
+          maxValues: 5,
+          text: type
+        };
+      });
+
+      commit('setFoodTypes', foodOptions);
+    }
+
+    if (state.colorTypes.length == 0) {
+      const colorOptions = COLOR_TYPES.map(type => {
+        return {
+          value: type,
+          valuesAssigned: 0,
+          maxValues: 5,
+          text: type
+        };
+      });
+
+      commit('setColorTypes', colorOptions);
     }
   }
 };
 
-export const getters = {
-  foodTypesOptions: state => {
-    return state.foodTypes.map(food => {
-      return { value: food, text: food };
-    });
-  },
-  colorTypesOptions: state => {
-    return state.colorTypes.map(color => {
-      return { value: color, text: color };
-    });
-  }
-};
+export const getters = {};

@@ -19,6 +19,7 @@
           <b-form-select :value="null" :options="colorTypes"> </b-form-select>
 
           <b-form-select :value="null" :options="foodTypes"> </b-form-select>
+
           <div class="picker-number-input">
             <b-form-input type="number" min="0" max="31"></b-form-input>
           </div>
@@ -36,17 +37,24 @@
 
         <!-- Color Section-->
         <div class="section">
-          <BECard attr="Branco" value="4" maxValue="5" />
-          <BECard attr="Preto" value="4" maxValue="5" />
-          <BECard attr="Marrom" value="4" maxValue="5" />
-          <BECard attr="Amarelo Claro" value="4" maxValue="5" />
+          <BECard
+            v-for="color in colorTypes"
+            :key="color.value"
+            :attr="color.text"
+            :value="color.valuesAssigned"
+            :maxValue="color.maxValues"
+          />
         </div>
 
         <!-- Feed Section-->
         <div class="section">
-          <BECard attr="Branco" value="4" maxValue="5" />
-          <BECard attr="Preto" value="4" maxValue="5" />
-          <BECard attr="Marrom" value="4" maxValue="5" />
+          <BECard
+            v-for="food in foodTypes"
+            :key="food.value"
+            :attr="food.text"
+            :value="food.valuesAssigned"
+            :maxValue="food.maxValues"
+          />
         </div>
 
         <!-- Size Section-->
@@ -69,23 +77,23 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import BECard from '~/components/be-card';
 export default {
   components: {
     BECard
   },
   computed: {
-    ...mapGetters({
-      foodTypes: 'birds/foodTypesOptions',
-      colorTypes: 'birds/colorTypesOptions'
+    ...mapState({
+      foodTypes: state => state.birds.foodTypes,
+      colorTypes: state => state.birds.colorTypes
     }),
     birds: function() {
       return this.$store.state.birds.list;
     }
   },
   async fetch({ store }) {
-    store.dispatch('birds/createInitialBirds');
+    store.dispatch('birds/init');
   }
 };
 </script>
