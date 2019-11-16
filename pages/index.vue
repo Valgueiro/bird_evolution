@@ -33,6 +33,31 @@
         <div class="title">
           <h5>Pontos Restantes</h5>
         </div>
+
+        <!-- Color Section-->
+        <div class="section">
+          <BECard attr="Branco" value="4" maxValue="5" />
+          <BECard attr="Preto" value="4" maxValue="5" />
+          <BECard attr="Marrom" value="4" maxValue="5" />
+          <BECard attr="Amarelo Claro" value="4" maxValue="5" />
+        </div>
+
+        <!-- Feed Section-->
+        <div class="section">
+          <BECard attr="Branco" value="4" maxValue="5" />
+          <BECard attr="Preto" value="4" maxValue="5" />
+          <BECard attr="Marrom" value="4" maxValue="5" />
+        </div>
+
+        <!-- Size Section-->
+        <div class="section">
+          <BECard attr="Branco" value="4" maxValue="5" />
+        </div>
+
+        <!-- Speed Section-->
+        <div class="section">
+          <BECard attr="Branco" value="4" maxValue="5" />
+        </div>
       </div>
     </div>
     <div class="button-continue">
@@ -45,7 +70,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BECard from '~/components/be-card';
 export default {
+  components: {
+    BECard
+  },
   computed: {
     ...mapGetters({
       foodTypes: 'birds/foodTypesOptions',
@@ -107,6 +136,11 @@ export default {
 
   & .title {
     text-align: center;
+    margin-bottom: 30px;
+  }
+
+  & .section {
+    margin-bottom: 35px;
   }
 }
 
