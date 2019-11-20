@@ -59,12 +59,12 @@
 
         <!-- Size Section-->
         <div class="section">
-          <BECard attr="Branco" value="4" maxValue="5" />
+          <BECard attr="Tamanho" :value="sizeUsed" maxValue="5" />
         </div>
 
         <!-- Speed Section-->
         <div class="section">
-          <BECard attr="Branco" value="4" maxValue="5" />
+          <BECard attr="Velocidade" :value="velocityUsed" maxValue="5" />
         </div>
       </div>
     </div>
@@ -86,7 +86,9 @@ export default {
   computed: {
     ...mapState({
       foodTypes: state => state.birds.foodTypes,
-      colorTypes: state => state.birds.colorTypes
+      colorTypes: state => state.birds.colorTypes,
+      sizeUsed: state => state.birds.sizeUsed,
+      velocityUsed: state => state.birds.velocityUsed
     }),
     birds: function() {
       return this.$store.state.birds.list;

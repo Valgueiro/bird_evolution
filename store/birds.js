@@ -5,7 +5,9 @@ const COLOR_TYPES = ['Branco', 'Preto', 'Marrom', 'Amarelo Claro'];
 export const state = () => ({
   list: [],
   foodTypes: [],
-  colorTypes: []
+  colorTypes: [],
+  sizeUsed: 0,
+  velocityUsed: 0
 });
 
 export const mutations = {
